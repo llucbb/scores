@@ -7,9 +7,7 @@ import org.springframework.data.annotation.Id;
 @JsonPropertyOrder({"userName", "score"})
 public class HighestScore {
 
-    public static final String USER_ID = "userid";
-
-    @JsonProperty(USER_ID)
+    @JsonProperty("userid")
     @Id
     private String userName;
 

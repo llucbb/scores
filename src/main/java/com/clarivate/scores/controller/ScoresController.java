@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scores endpoints in order to provide unique session key valid for use for a defined period by other endpoints.
+ */
 @RestController
 @CrossOrigin
 public class ScoresController {
@@ -29,7 +32,7 @@ public class ScoresController {
     @Autowired
     private ScoresService defaultScoresService;
 
-    @PutMapping(value = "/level/{level}/score/{score}")
+    @PutMapping("/level/{level}/score/{score}")
     public ResponseEntity addLevelScore(@PathVariable int level, @PathVariable int score) {
         LOG.debug(String.format("-> addLevelScore: level=%d, score=%d", level, score));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -38,7 +41,7 @@ public class ScoresController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/level/{level}/score")
+    @GetMapping("/level/{level}/score")
     public ResponseEntity<?> getScoresFiltered(@PathVariable int level, @RequestParam String filter) {
         LOG.debug(String.format("-> getScoresFiltered: level=%d, filter=%s", level, filter));
         List<HighestScore> scores = new ArrayList<>();

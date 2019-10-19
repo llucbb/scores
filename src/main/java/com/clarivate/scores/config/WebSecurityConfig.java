@@ -1,6 +1,5 @@
 package com.clarivate.scores.config;
 
-import com.clarivate.scores.controller.AuthenticationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,9 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // Allow access without security for the login request
                 .authorizeRequests()
-                .antMatchers(AuthenticationController.AUTH_PATH).permitAll()
+                .antMatchers("/login").permitAll()
+                // Allow access to highest scores request
                 .antMatchers("/level/{\\\\d+}/score").permitAll()
-                // All other requests need to be authenticated
+                // All other requests (add level scores) need to be authenticated
                 .anyRequest().authenticated()
                 // Exception handling in case authentication errors
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint)

@@ -10,6 +10,6 @@ import java.util.List;
 public interface ScoresRepository extends MongoRepository<Score, String> {
 
     @Aggregation(pipeline = {"{ $match : { level : ?0 } }", "{ $group : { _id : $userName, score : { $max : $score } } }"})
-    List<HighestScore> getHighestScoresPerLevel(Integer level);
+    List<HighestScore> getHighestScoresPerLevel(int level);
 
 }

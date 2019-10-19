@@ -1,15 +1,14 @@
 package com.clarivate.scores.config;
 
-import com.clarivate.scores.controller.AuthenticationController;
 import com.clarivate.scores.model.AuthRequest;
 import com.clarivate.scores.service.SessionKeyService;
-import com.clarivate.scores.service.impl.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -31,7 +30,7 @@ import static com.clarivate.scores.model.AuthResponse.SESSION_KEY;
 public class AuthRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsService userService;
 
     @Autowired
     private SessionKeyService jwtSessionKeyService;
@@ -57,9 +56,6 @@ public class AuthRequestFilter extends OncePerRequestFilter {
             } catch (SignatureException e) {
                 logger.warn(String.format("%s signature is not valid", SESSION_KEY), e);
             }
-        } else if (!AuthenticationController.AUTH_PATH.equals(request.getServletPath())) {
-            // Is an issue only if we are not using the login endpoint
-            logger.error(String.format("%s not found", SESSION_KEY));
         }
 
         chain.doFilter(request, response);
