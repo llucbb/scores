@@ -52,9 +52,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
             } catch (IllegalArgumentException e) {
                 logger.error(String.format("No able to get %s", SESSION_KEY), e);
             } catch (ExpiredJwtException e) {
-                logger.warn(String.format("%s has expired", SESSION_KEY), e);
+                logger.error(String.format("%s has expired", SESSION_KEY), e);
             } catch (SignatureException e) {
-                logger.warn(String.format("%s signature is not valid", SESSION_KEY), e);
+                logger.error(String.format("%s signature is not valid", SESSION_KEY), e);
             }
         }
 
