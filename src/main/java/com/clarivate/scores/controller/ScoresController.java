@@ -34,6 +34,7 @@ public class ScoresController {
         LOG.debug(String.format("-> addLevelScore: level=%d, score=%d", level, score));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         defaultScoresService.addLevelScore(authentication.getName(), level, score);
+        LOG.debug("<- addLevelScore");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

@@ -52,7 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 // Allow access without security for the login request
-                .authorizeRequests().antMatchers(AuthenticationController.AUTH_PATH).permitAll()
+                .authorizeRequests()
+                .antMatchers(AuthenticationController.AUTH_PATH).permitAll()
+                .antMatchers("/level/{\\\\d+}/score").permitAll()
                 // All other requests need to be authenticated
                 .anyRequest().authenticated()
                 // Exception handling in case authentication errors

@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ScoresRepository extends MongoRepository<Score, String> {
-//{ $match: { level : $?0 } },
-    @Aggregation("{ $group: { _id : $userName, score : { $max : $score } } }")
-    List<HighestScore> getHighestScoresPerLevel(int level);
+
+    @Aggregation(pipeline = {"{ $match : { level : ?0 } }", "{ $group : { _id : $userName, score : { $max : $score } } }"})
+    List<HighestScore> getHighestScoresPerLevel(Integer level);
 
 }

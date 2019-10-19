@@ -1,12 +1,15 @@
 package com.clarivate.scores.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.data.annotation.Id;
 
+@JsonPropertyOrder({"userName", "score"})
 public class HighestScore {
 
     public static final String USER_ID = "userid";
 
-    //@JsonProperty(USER_ID)
+    @JsonProperty(USER_ID)
     @Id
     private String userName;
 
@@ -26,13 +29,5 @@ public class HighestScore {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    @Override
-    public String toString() {
-        return "HighestScore{" +
-                "userName='" + userName + '\'' +
-                ", score=" + score +
-                '}';
     }
 }
