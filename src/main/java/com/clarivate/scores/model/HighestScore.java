@@ -4,13 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.data.annotation.Id;
 
-@JsonPropertyOrder({"userName", "score"})
-public class HighestScore {
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-    @JsonProperty("userid")
+@JsonPropertyOrder({"userName", "score"})
+public class HighestScore implements Serializable {
+
     @Id
+    @NotNull
+    @JsonProperty("userid")
     private String userName;
 
+    @NotNull
     private int score;
 
     public String getUserName() {

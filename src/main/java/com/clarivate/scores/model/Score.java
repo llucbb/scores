@@ -4,9 +4,10 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Document(collection = "scores")
-public class Score {
+public class Score implements Serializable {
 
     @Indexed
     @NotNull
