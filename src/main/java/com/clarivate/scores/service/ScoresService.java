@@ -1,6 +1,6 @@
 package com.clarivate.scores.service;
 
-import com.clarivate.scores.model.Score;
+import com.clarivate.scores.model.HighestScore;
 
 import java.util.List;
 
@@ -8,6 +8,5 @@ public interface ScoresService {
 
     void addLevelScore(String userName, int level, int score);
 
-    List<Score> getHighestScores(int level);
-
+    List<HighestScore> getHighestScoresPerLevel(int level);
 }

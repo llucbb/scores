@@ -1,5 +1,6 @@
 package com.clarivate.scores.service.impl;
 
+import com.clarivate.scores.model.HighestScore;
 import com.clarivate.scores.model.Score;
 import com.clarivate.scores.repository.ScoresRepository;
 import com.clarivate.scores.service.ScoresService;
@@ -25,8 +26,7 @@ public class DefaultScoresService implements ScoresService {
     }
 
     @Override
-    public List<Score> getHighestScores(int level) {
-//        BasicQuery query = new BasicQuery("{ age : { $lt : 50 }, accounts.balance : { $gt : 1000.00 }}");
-        return scoresRepository.findByLevel(level);
+    public List<HighestScore> getHighestScoresPerLevel(int level) {
+        return scoresRepository.getHighestScoresPerLevel(level);
     }
 }

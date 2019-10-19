@@ -1,6 +1,6 @@
 package com.clarivate.scores.controller;
 
-import com.clarivate.scores.model.Score;
+import com.clarivate.scores.model.HighestScore;
 import com.clarivate.scores.service.ScoresService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,19 +31,20 @@ public class ScoresController {
 
     @PutMapping(value = "/level/{level}/score/{score}")
     public ResponseEntity addLevelScore(@PathVariable int level, @PathVariable int score) {
-        LOG.info(String.format("addLevelScore: level=%d, score=%d", level, score));
+        LOG.debug(String.format("-> addLevelScore: level=%d, score=%d", level, score));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         defaultScoresService.addLevelScore(authentication.getName(), level, score);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/level/{level}/score")
-    public ResponseEntity<?> getHighestScorePerLevel(@PathVariable int level, @RequestParam String filter) {
-        LOG.info(String.format("getHighestScorePerLevel: level=%d, filter=%s", level, filter));
-        List<Score> scores = new ArrayList<>();
+    public ResponseEntity<?> getScoresFiltered(@PathVariable int level, @RequestParam String filter) {
+        LOG.debug(String.format("-> getScoresFiltered: level=%d, filter=%s", level, filter));
+        List<HighestScore> scores = new ArrayList<>();
         if (filter.equals("highestscore")) {
-            scores = defaultScoresService.getHighestScores(level);
+            scores = defaultScoresService.getHighestScoresPerLevel(level);
         }
-        return new ResponseEntity<>(scores, new HttpHeaders(), HttpStatus.NO_CONTENT);
+        LOG.debug(String.format("<- getScoresFiltered: %s", scores));
+        return new ResponseEntity<>(scores, new HttpHeaders(), HttpStatus.OK);
     }
 }
