@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Scores endpoints in order to provide unique session key valid for use for a defined period by other endpoints.
+ * Scores endpoints in order to add scores per user/level and retrieves a list of scores filtered (user highest scores
+ * per level)
  */
 @RestController
 @CrossOrigin
@@ -31,6 +32,14 @@ public class ScoresController {
     @Autowired
     private ScoresService defaultScoresService;
 
+    /**
+     * Adds a new level score for the authenticated user
+     *
+     * @param level          The level of the new score
+     * @param score          The new user score per level
+     * @param authentication The user of the new score
+     * @return Nothing (HTTP status code 204-No Content)
+     */
     @PutMapping("/level/{level}/score/{score}")
     public ResponseEntity addLevelScore(@PathVariable int level, @PathVariable int score, Authentication authentication) {
         LOG.debug(String.format("-> addLevelScore: level=%d, score=%d", level, score));
@@ -44,6 +53,14 @@ public class ScoresController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Retrieves a list of scores filtered by:
+     * * highestscore: Highest user scores per level
+     *
+     * @param level  The level of the scores to apply the filter
+     * @param filter The type of filter to be applied
+     * @return The list of the scores filtered depending on the filter parameter (HTTP status code 200-OK)
+     */
     @GetMapping("/level/{level}/score")
     public ResponseEntity<?> getScoresFiltered(@PathVariable int level, @RequestParam String filter) {
         LOG.debug(String.format("-> getScoresFiltered: level=%d, filter=%s", level, filter));

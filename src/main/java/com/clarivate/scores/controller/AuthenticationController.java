@@ -36,7 +36,7 @@ public class AuthenticationController {
      * Returns a unique session key which is valid for use for a defined period by other endpoints.
      *
      * @param authRequest The {@link AuthRequest} with the username and password
-     * @return The {@link AuthResponse} entity with the sessionKey and the required 202 (Accepted) HTTP status code.
+     * @return The {@link AuthResponse} entity with the sessionKey (HTTP status code 202-Accepted)
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
