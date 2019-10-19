@@ -1,6 +1,5 @@
 package com.clarivate.scores.config;
 
-import com.clarivate.scores.model.AuthRequest;
 import com.clarivate.scores.service.SessionKeyService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -20,14 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.clarivate.scores.model.AuthResponse.SESSION_KEY;
-
 /**
  * Single execution per request {@link OncePerRequestFilter} filter. Validates the request header with the session key
  * and performs the spring security user authorization in order to grant access to the secured endpoints.
  */
 @Component
 public class AuthRequestFilter extends OncePerRequestFilter {
+
+    private static final String SESSION_KEY = "Session-Key";
 
     @Autowired
     private UserDetailsService userService;
@@ -44,7 +43,7 @@ public class AuthRequestFilter extends OncePerRequestFilter {
             try {
                 String username = jwtSessionKeyService.getUsernameFromSessionKey(sessionKey);
                 if (StringUtils.isEmpty(username)) {
-                    logger.error(String.format("%s not found in the %s", AuthRequest.USER_NAME, SESSION_KEY));
+                    logger.error(String.format("username not found in the %s", SESSION_KEY));
                 } else if (SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserDetails userDetails = userService.loadUserByUsername(username);
                     authorize(request, sessionKey, userDetails);

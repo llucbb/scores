@@ -1,7 +1,6 @@
 package com.clarivate.scores.controller;
 
 import com.clarivate.scores.model.AuthRequest;
-import com.clarivate.scores.model.AuthResponse;
 import com.clarivate.scores.service.SessionKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -36,15 +35,15 @@ public class AuthenticationController {
      * Returns a unique session key which is valid for use for a defined period by other endpoints.
      *
      * @param authRequest The {@link AuthRequest} with the username and password
-     * @return The {@link AuthResponse} entity with the sessionKey (HTTP status code 202-Accepted)
+     * @return The session key (HTTP status code 202-Accepted)
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                authRequest.getUserName(),
+                authRequest.getUsername(),
                 authRequest.getPassword()));
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUserName());
+        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String sessionKey = jwtSessionKeyService.generateSessionKey(userDetails);
-        return new ResponseEntity<>(new AuthResponse(sessionKey), new HttpHeaders(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(sessionKey, new HttpHeaders(), HttpStatus.ACCEPTED);
     }
 }
