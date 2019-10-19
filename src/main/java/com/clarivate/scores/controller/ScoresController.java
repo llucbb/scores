@@ -9,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,11 +32,15 @@ public class ScoresController {
     private ScoresService defaultScoresService;
 
     @PutMapping("/level/{level}/score/{score}")
-    public ResponseEntity addLevelScore(@PathVariable int level, @PathVariable int score) {
+    public ResponseEntity addLevelScore(@PathVariable int level, @PathVariable int score, Authentication authentication) {
         LOG.debug(String.format("-> addLevelScore: level=%d, score=%d", level, score));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        defaultScoresService.addLevelScore(authentication.getName(), level, score);
-        LOG.debug("<- addLevelScore");
+        // At this point, authentication must be performed at AuthRequestFilter, although it's better to be defensive
+        if (authentication != null) {
+            defaultScoresService.addLevelScore(authentication.getName(), level, score);
+            LOG.debug("<- addLevelScore");
+        } else {
+            LOG.error("Authentication is null");
+        }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
