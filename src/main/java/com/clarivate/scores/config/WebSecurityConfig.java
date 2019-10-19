@@ -13,7 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.Filter;
 
 /**
  * Application security configuration.
@@ -24,13 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UnauthorizedEntryPoint unauthorizedEntryPoint;
+    private AuthenticationEntryPoint unauthorizedEntryPoint;
 
     @Autowired
     private UserDetailsService userService;
 
     @Autowired
-    private AuthRequestFilter authRequestFilter;
+    private Filter authRequestFilter;
 
     @Autowired
     private void configureGlobal(AuthenticationManagerBuilder authBuilder) throws Exception {

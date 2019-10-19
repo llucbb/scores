@@ -27,7 +27,7 @@ import java.util.List;
 @CrossOrigin
 public class ScoresController {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ScoresController.class);
+    private final static Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private ScoresService defaultScoresService;

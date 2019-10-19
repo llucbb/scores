@@ -2,6 +2,8 @@ package com.clarivate.scores.controller;
 
 import com.clarivate.scores.model.AuthRequest;
 import com.clarivate.scores.service.SessionKeyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 public class AuthenticationController {
+
+    private final static Logger LOG = LoggerFactory.getLogger(ScoresController.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
