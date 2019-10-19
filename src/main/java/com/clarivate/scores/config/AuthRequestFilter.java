@@ -3,11 +3,9 @@ package com.clarivate.scores.config;
 import com.clarivate.scores.controller.AuthenticationController;
 import com.clarivate.scores.model.AuthRequest;
 import com.clarivate.scores.service.SessionKeyService;
-import com.clarivate.scores.service.UserService;
+import com.clarivate.scores.service.impl.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,8 +30,6 @@ import static com.clarivate.scores.model.AuthResponse.SESSION_KEY;
 @Component
 public class AuthRequestFilter extends OncePerRequestFilter {
 
-    private final static Logger LOG = LoggerFactory.getLogger(AuthRequestFilter.class);
-
     @Autowired
     private UserService userService;
 
@@ -55,11 +51,11 @@ public class AuthRequestFilter extends OncePerRequestFilter {
                     authorize(request, sessionKey, userDetails);
                 }
             } catch (IllegalArgumentException e) {
-                LOG.error(String.format("No able to get %s", SESSION_KEY), e);
+                logger.error(String.format("No able to get %s", SESSION_KEY), e);
             } catch (ExpiredJwtException e) {
-                LOG.warn(String.format("%s has expired", SESSION_KEY), e);
+                logger.warn(String.format("%s has expired", SESSION_KEY), e);
             } catch (SignatureException e) {
-                LOG.warn(String.format("%s signature is not valid", SESSION_KEY), e);
+                logger.warn(String.format("%s signature is not valid", SESSION_KEY), e);
             }
         } else if (!AuthenticationController.AUTH_PATH.equals(request.getServletPath())) {
             // Is an issue only if we are not using the login endpoint

@@ -2,8 +2,8 @@ package com.clarivate.scores.controller;
 
 import com.clarivate.scores.model.AuthRequest;
 import com.clarivate.scores.model.AuthResponse;
-import com.clarivate.scores.service.JwtSessionKeyService;
-import com.clarivate.scores.service.UserService;
+import com.clarivate.scores.service.impl.JwtSessionKeyService;
+import com.clarivate.scores.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

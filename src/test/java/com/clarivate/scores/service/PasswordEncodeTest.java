@@ -21,7 +21,7 @@ public class PasswordEncodeTest {
 
     @Test
     public void testEncode() {
-        final String password = "changeit1";
+        final String password = "changeit3";
 
         String encoded = passwordEncoder.encode(password);
 

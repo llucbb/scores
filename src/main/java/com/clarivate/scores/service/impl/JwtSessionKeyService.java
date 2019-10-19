@@ -1,5 +1,6 @@
-package com.clarivate.scores.service;
+package com.clarivate.scores.service.impl;
 
+import com.clarivate.scores.service.SessionKeyService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
@@ -24,8 +25,6 @@ import java.util.function.Function;
  */
 @Service
 public class JwtSessionKeyService implements SessionKeyService {
-
-    private final static Logger LOG = LoggerFactory.getLogger(JwtSessionKeyService.class);
 
     private static final long SESSION_KEY_EXPIRATION_MS = 600000; // 10min
     private static final String JWT = "JWT";
