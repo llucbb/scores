@@ -62,7 +62,7 @@ needed for the project to be executed are properly specified on ReadMe.
 
 * Download git: https://git-scm.com/downloads
 * Download MongoDB Community Server: https://www.mongodb.com/download-center/community
-* Create a database (localhost:27017) named scores with a collection named users with the following entries:
+* Create a database (localhost:27017) named scores with a collection named users with the following user document:
 ```
 userName : "user1"
 password : "$2a$10$xBq5u8YyQ1zMewSEu7SDD.fZ79x0YFOVyzTRfLOYi5S6M/PI6kSPG"
