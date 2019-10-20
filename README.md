@@ -67,7 +67,8 @@ needed for the project to be executed are properly specified on ReadMe.
 userName : "user1"
 password : "$2a$10$xBq5u8YyQ1zMewSEu7SDD.fZ79x0YFOVyzTRfLOYi5S6M/PI6kSPG"
 ```
-Original password before encoding is: changeit1 (PasswordEncodeTest could be used for encoding more password)
+Original password before encoding is: changeit1 (PasswordEncodeTest could be used for encoding more passwords, in order 
+to create more users)
 
 Clone scores repo:
 ```
