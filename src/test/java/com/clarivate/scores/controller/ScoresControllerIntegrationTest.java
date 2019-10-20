@@ -7,6 +7,7 @@ import com.clarivate.scores.repository.ScoresRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.platform.commons.util.CollectionUtils;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MvcResult;
@@ -47,6 +48,27 @@ public class ScoresControllerIntegrationTest extends BaseControllerIntegrationTe
         assertEquals(level, score.getLevel());
         assertEquals(userName, score.getUserName());
         assertEquals(scoreValue, score.getScore());
+    }
+
+    @Test
+    public void testAddLevelScoreSessionKeyExpired() throws Exception {
+        String userName = "user1";
+        String password = "changeit1";
+        saveUser(userName, password);
+        String sessionKey = getSessionKey(userName, password);
+        // Wait just a bit more than sessionKeyExpiration property
+        Thread.sleep(2500);
+        int level = 3;
+        int scoreValue = 333;
+
+        MvcResult mvcResult = mockMvc.perform(
+                put(String.format("/level/%s/score/%s", level, scoreValue)).header(AuthRequestFilter.SESSION_KEY, sessionKey))
+                .andExpect(status().isUnauthorized()).andReturn();
+
+        assertTrue(StringUtils.isBlank(mvcResult.getResponse().getContentAsString()));
+        List<Score> scores = scoresRepository.findByLevelUserAndScore(level, userName, scoreValue);
+        assertNotNull(scores);
+        assertEquals(0, scores.size());
     }
 
     @Test

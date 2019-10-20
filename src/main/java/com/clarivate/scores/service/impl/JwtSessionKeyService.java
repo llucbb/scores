@@ -26,10 +26,12 @@ import java.util.function.Function;
 @Service
 public class JwtSessionKeyService implements SessionKeyService {
 
-    private static final long SESSION_KEY_EXPIRATION_MS = 600000; // 10min
     private static final String JWT = "JWT";
     private static final String ALG = "HS512";
     private static final String ISSUER = "clarivate";
+
+    @Value("${sessionKeyExpiration}")
+    private long sessionKeyExpiration;
 
     @Value("${jwt.signingKey}")
     private String signingKey;
@@ -50,7 +52,7 @@ public class JwtSessionKeyService implements SessionKeyService {
                 .setSubject(userDetails.getUsername())
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + SESSION_KEY_EXPIRATION_MS))
+                .setExpiration(new Date(System.currentTimeMillis() + sessionKeyExpiration))
                 .signWith(SignatureAlgorithm.HS512, signingKey)
                 .compact();
     }
