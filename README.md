@@ -58,7 +58,7 @@ Take your time to deliver a solution that fairly represents your code skills.
 We expect to receive a link to a git repo where we can do a clone. Make sure all steps
 needed for the project to be executed are properly specified on ReadMe.
 
-### Execution
+## Execution
 
 * Download maven: https://maven.apache.org/download.cgi
 * Download git: https://git-scm.com/downloads
