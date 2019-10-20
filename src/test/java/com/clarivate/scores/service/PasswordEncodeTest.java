@@ -1,6 +1,7 @@
 package com.clarivate.scores.service;
 
 import io.jsonwebtoken.lang.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class PasswordEncodeTest {
 
     private final static Logger LOG = LoggerFactory.getLogger(PasswordEncodeTest.class);
