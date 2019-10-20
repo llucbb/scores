@@ -106,6 +106,7 @@ public class ScoresControllerIntegrationTest extends BaseControllerIntegrationTe
         String response = mvcResult.getResponse().getContentAsString();
         Assert.assertNotNull(response);
         HighestScore[] userScores = new ObjectMapper().readValue(response, HighestScore[].class);
+        assertEquals(3, userScores.length);
         for (HighestScore score : userScores) {
             switch (score.getUserName()) {
                 case "user1":
