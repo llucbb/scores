@@ -26,7 +26,7 @@ import java.io.IOException;
 @Component
 public class AuthRequestFilter extends OncePerRequestFilter {
 
-    private static final String SESSION_KEY = "Session-Key";
+    public static final String SESSION_KEY = "Session-Key";
 
     @Autowired
     private UserDetailsService userService;
