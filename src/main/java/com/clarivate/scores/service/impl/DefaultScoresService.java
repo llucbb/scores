@@ -17,12 +17,7 @@ public class DefaultScoresService implements ScoresService {
 
     @Override
     public void addLevelScore(String userName, int level, int scoreValue) {
-        Score score = new Score();
-        score.setUserName(userName);
-        score.setLevel(level);
-        score.setScore(scoreValue);
-
-        scoresRepository.save(score);
+        scoresRepository.save(new Score(level, userName, scoreValue));
     }
 
     @Override

@@ -19,6 +19,12 @@ public class Score implements Serializable {
     @NotNull
     private int score;
 
+    public Score(int level, String userName, int score) {
+        this.level = level;
+        this.userName = userName;
+        this.score = score;
+    }
+
     public int getLevel() {
         return level;
     }

@@ -28,17 +28,21 @@ public class AuthenticationControllerIntegrationTest extends BaseControllerInteg
     public void testLoginAccepted() throws Exception {
         final String userName = "user1";
         final String password = "changeit1";
+        saveUser(userName, password);
+
         String sessionKey = getSessionKey(userName, password);
 
         assertNotNull(sessionKey);
-        UserDetails userDetails = new User(userName, null, new ArrayList<>());
+        UserDetails userDetails = new User(userName, password, new ArrayList<>());
         assertTrue(jwtSessionKeyService.isSessionKeyValid(sessionKey, userDetails));
         assertEquals(userName, jwtSessionKeyService.getUsernameFromSessionKey(sessionKey));
     }
 
     @Test
     public void testLoginUnauthorized() throws Exception {
-        AuthRequest authRequest = new AuthRequest("user1", "wrong");
+        final String userName = "user5";
+        final String password = "changeit5";
+        AuthRequest authRequest = new AuthRequest(userName, password);
         String jsonAuthRequest = new ObjectMapper().writeValueAsString(authRequest);
 
         MvcResult mvcResult = mockMvc.perform(
