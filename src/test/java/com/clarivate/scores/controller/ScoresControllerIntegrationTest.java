@@ -95,7 +95,8 @@ public class ScoresControllerIntegrationTest extends BaseControllerIntegrationTe
         scoresRepository.save(new Score(1, "user2", 2));
         scoresRepository.save(new Score(1, "user2", 6));
         scoresRepository.save(new Score(1, "user3", 1));
-        scoresRepository.save(new Score(2, "user1", 3));
+        scoresRepository.save(new Score(2, "user1", 10));
+        scoresRepository.save(new Score(3, "user3", 10));
         int level = 1;
 
         MvcResult mvcResult = mockMvc.perform(
