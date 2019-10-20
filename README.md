@@ -60,6 +60,7 @@ needed for the project to be executed are properly specified on ReadMe.
 
 ### Execution
 
+* Download maven: https://maven.apache.org/download.cgi
 * Download git: https://git-scm.com/downloads
 * Download MongoDB Community Server: https://www.mongodb.com/download-center/community
 * Create a database (localhost:27017) named scores with a collection named users with the following user document:
